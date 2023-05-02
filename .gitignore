@@ -21,7 +21,7 @@ Thumbs.db
 .DS_Store
 
 # Flan's Mod
-!run/Flan/
+#!run/Flan/
 
 # Flan's Scripts
 upload.bat

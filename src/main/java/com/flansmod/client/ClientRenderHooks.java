@@ -506,6 +506,8 @@ public class ClientRenderHooks
 					{
 						biped.bipedRightArm.postRender(0.0625F);
 						GlStateManager.translate(-0.05F, 0.4F, 0.05F);
+						if (entity.isSneaking())
+							GlStateManager.translate(0, 0, 0.2);
 						ClientProxy.gunRenderer
 								.renderItem(CustomItemRenderType.EQUIPPED, hand, stack, mc.world, entity);
 					}
