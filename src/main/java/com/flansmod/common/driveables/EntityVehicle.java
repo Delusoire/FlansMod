@@ -527,6 +527,11 @@ public class EntityVehicle extends EntityDriveable implements IExplodeable
 			soundPosition = type.engineSoundLength;
 		}
 		
+		for (DriveablePart part : driveableData.parts.values()) {
+			if (part != null)
+				part.updatePosition();
+		}
+		
 		for(EntitySeat seat : getSeats())
 		{
 			if(seat != null)
