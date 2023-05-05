@@ -101,10 +101,15 @@ public class ModelCustomArmour extends ModelBiped
 	
 	public void setBodyPart(ModelRendererTurbo[] models, ModelRenderer bodyPart, float scale)
 	{
+		float yOff;
+		if (bodyPart == bipedLeftArm || bodyPart == bipedRightArm)
+			yOff = 0.5f;//0.25f;
+		else yOff = 0f;
+		
 		for(ModelRendererTurbo mod : models)
 		{
 			mod.rotationPointX = bodyPart.rotationPointX / scale;
-			mod.rotationPointY = bodyPart.rotationPointY / scale;
+			mod.rotationPointY = bodyPart.rotationPointY / scale + yOff;
 			mod.rotationPointZ = bodyPart.rotationPointZ / scale;
 		}
 	}
