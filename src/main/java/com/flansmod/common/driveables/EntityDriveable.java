@@ -165,10 +165,18 @@ public abstract class EntityDriveable extends Entity implements IControllable, I
 	
 	protected void initType(DriveableType type, boolean firstSpawn, boolean clientSide)
 	{
+		
 		seats = new EntitySeat[type.numPassengers + 1];
 		wheels = new EntityWheel[type.wheelPositions.length];
 		if(!clientSide && firstSpawn)
 		{
+			for (DriveablePart part : driveableData.parts.values()) {
+				part.setWorld(world);
+				part.setDriveable(this);
+				world.spawnEntity(part);
+				part.startRiding(this);
+			}
+			
 			for(int i = 0; i < type.numPassengers + 1; i++)
 			{
 				seats[i] = new EntitySeat(world, this, i);
@@ -358,6 +366,10 @@ public abstract class EntityDriveable extends Entity implements IControllable, I
 		if(world.isRemote)
 			camera.setDead();
 		
+		for (DriveablePart part : driveableData.parts.values()) {
+			if (part != null)
+				part.reallySetDead();
+		}
 		for(EntitySeat seat : seats)
 		{
 			if(seat != null)
@@ -1905,6 +1917,10 @@ public abstract class EntityDriveable extends Entity implements IControllable, I
 		{
 			// We need to do some handling to work out which seat to get into. Or not?
 		}
+	}
+	
+	public void registerPart(DriveablePart part) {
+		driveableData.parts.put(part.type, part);
 	}
 	
 	public void registerSeat(EntitySeat seat)
