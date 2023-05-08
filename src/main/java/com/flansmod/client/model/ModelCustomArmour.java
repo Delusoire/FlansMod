@@ -10,6 +10,7 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.EnumAction;
 import net.minecraft.item.ItemStack;
+import mchhui.modularmovements.tactical.client.ClientLitener;
 
 import com.flansmod.client.tmt.ModelRendererTurbo;
 import com.flansmod.common.teams.ArmourType;
@@ -26,6 +27,13 @@ public class ModelCustomArmour extends ModelBiped
 	public ModelRendererTurbo[] rightLegModel = new ModelRendererTurbo[0];
 	public ModelRendererTurbo[] skirtFrontModel = new ModelRendererTurbo[0]; //Acts like a leg piece, but its pitch is set to the maximum of the two legs
 	public ModelRendererTurbo[] skirtRearModel = new ModelRendererTurbo[0]; //Acts like a leg piece, but its pitch is set to the minimum of the two legs
+
+ @Override
+ public void setRotationAngles(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor, Entity entityIn) {
+  // TODO Auto-generated method stub
+  super.setRotationAngles(limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scaleFactor, entityIn);
+  ClientLitener.setRotationAngles(this, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scaleFactor, entityIn);
+ }
 	
 	public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5)
 	{
