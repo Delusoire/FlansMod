@@ -1,28 +1,28 @@
 buildscript
-{
-    dependencies
-	{
-        classpath 'net.minecraftforge.gradle:ForgeGradle:2.3-SNAPSHOT'
-        classpath 'com.github.jengelman.gradle.plugins:shadow:1.2.4'
+    {
+        dependencies
+            {
+                classpath 'net.minecraftforge.gradle:ForgeGradle:2.3-SNAPSHOT'
+                classpath 'com.github.jengelman.gradle.plugins:shadow:1.2.4'
+            }
+        repositories
+            {
+                jcenter()
+                maven
+                    {
+                        // location of the maven that hosts the forge files
+                        name = "Forge maven"
+                        url = "http://files.minecraftforge.net/maven"
+                    }
+            }
     }
-    repositories
-	{
-        jcenter()
-        maven
-		{
-			// location of the maven that hosts the forge files
-			name = "Forge maven"
-			url = "http://files.minecraftforge.net/maven"
-        }
-    }
-}
 
 apply plugin: 'net.minecraftforge.gradle.forge'
 apply plugin: 'com.github.johnrengelman.shadow'
 
 version = version_major + "." + version_minor + "." + version_patch + version_extra
 group = "com.flansmod"
-archivesBaseName = "Flan's Mod"
+archivesBaseName = "Flans Mod"
 
 apocalypseVersion = apocalypseVersion + version_extra
 
@@ -34,6 +34,7 @@ compileJava {
 dependencies {
     compile "io.vavr:vavr:0.10.2"
     shadow "io.vavr:vavr:0.10.2"
+    provided(files("libs/modularmovements-1.2.0f.jar"))
 }
 
 minecraft {
