@@ -2,6 +2,7 @@ package com.flansmod.client.model;
 
 import org.lwjgl.opengl.GL11;
 
+import net.minecraft.client.entity.AbstractClientPlayer;
 import net.minecraft.client.model.ModelBiped;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.client.renderer.GlStateManager;
@@ -28,12 +29,59 @@ public class ModelCustomArmour extends ModelBiped
 	public ModelRendererTurbo[] skirtFrontModel = new ModelRendererTurbo[0]; //Acts like a leg piece, but its pitch is set to the maximum of the two legs
 	public ModelRendererTurbo[] skirtRearModel = new ModelRendererTurbo[0]; //Acts like a leg piece, but its pitch is set to the minimum of the two legs
 
- @Override
- public void setRotationAngles(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor, Entity entityIn) {
-  // TODO Auto-generated method stub
-  super.setRotationAngles(limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scaleFactor, entityIn);
-  ClientLitener.setRotationAngles(this, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scaleFactor, entityIn);
- }
+	@Override
+	public void setRotationAngles(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor, Entity entityIn) {
+		// TODO Auto-generated method stub
+		super.setRotationAngles(limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scaleFactor, entityIn);
+		ClientLitener.setRotationAngles(this, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scaleFactor, entityIn);
+	}
+ 
+ 
+ 	public void renderRightArm(AbstractClientPlayer clientPlayer, ModelBiped baseBiped) {
+		Bones bones = this.bones;
+		if (clientPlayer.getSkinType().equals("slim")) {
+			bones = this.bonesSmall;
+		}
+		bones.armor = this;
+		float f = 1.0F;
+		GlStateManager.color(1.0F, 1.0F, 1.0F);
+		float f1 = 0.0625F;
+		ModelPlayer modelplayer = bones;
+		modelplayer.bipedRightArm.isHidden = false;
+		modelplayer.bipedRightArm.showModel = true;
+		GlStateManager.enableBlend();
+		modelplayer.swingProgress = 0.0F;
+		modelplayer.isSneak = false;
+		modelplayer.setRotationAngles(0.0F, 0.0F, 0.0F, 0.0F, 0.0F, 0.0625F, clientPlayer);
+		modelplayer.bipedRightArm.rotateAngleX = baseBiped.bipedRightArm.rotateAngleX;
+		modelplayer.bipedRightArm.rotateAngleY = baseBiped.bipedRightArm.rotateAngleY;
+		modelplayer.bipedRightArm.rotateAngleZ = baseBiped.bipedRightArm.rotateAngleZ;
+		modelplayer.bipedRightArm.render(0.0625F);
+		GlStateManager.disableBlend();
+	}
+
+	public void renderLeftArm(AbstractClientPlayer clientPlayer, ModelBiped baseBiped) {
+		Bones bones = this.bones;
+		if (clientPlayer.getSkinType().equals("slim")) {
+			bones = this.bonesSmall;
+		}
+		bones.armor = this;
+		float f = 1.0F;
+		GlStateManager.color(1.0F, 1.0F, 1.0F);
+		float f1 = 0.0625F;
+		ModelPlayer modelplayer = bones;
+		modelplayer.bipedLeftArm.isHidden = false;
+		modelplayer.bipedLeftArm.showModel = true;
+		GlStateManager.enableBlend();
+		modelplayer.isSneak = false;
+		modelplayer.swingProgress = 0.0F;
+		modelplayer.setRotationAngles(0.0F, 0.0F, 0.0F, 0.0F, 0.0F, 0.0625F, clientPlayer);
+		modelplayer.bipedLeftArm.rotateAngleX = baseBiped.bipedLeftArm.rotateAngleX;
+		modelplayer.bipedLeftArm.rotateAngleY = baseBiped.bipedLeftArm.rotateAngleY;
+		modelplayer.bipedLeftArm.rotateAngleZ = baseBiped.bipedLeftArm.rotateAngleZ;
+		modelplayer.bipedLeftArm.render(0.0625F);
+		GlStateManager.disableBlend();
+    	}
 	
 	public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5)
 	{
