@@ -34,7 +34,7 @@ compileJava {
 dependencies {
     compile "io.vavr:vavr:0.10.2"
     shadow "io.vavr:vavr:0.10.2"
-    provided(files("libs/modularmovements-1.2.0f.jar"))
+    provided(files("libs/modularwarfare-2.4.2f.jar"))
 }
 
 minecraft {
